@@ -4,6 +4,10 @@ import * as yup from "yup";
 import { Box, Button, Grid, TextField, Typography } from "@mui/material";
 import { green, grey } from "@mui/material/colors";
 import { useState } from "react";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+import axios from "../../utils/axios";
+
 
 const schema = yup.object().shape({
     firstName: yup.string().required("First Name is required").min(2, "First Name should be at least 2 characters"),
@@ -21,6 +25,8 @@ function Contact(){
         mode: 'onChange',  // To enable real-time validation
     });
 
+    const navigate = useNavigate();
+    const [submitted, setSubmitted] = useState(false);
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -28,9 +34,37 @@ function Contact(){
     const onSubmit = (data) => {
         console.log("Form submitted successfully:", data);
       };
+
+      const createContact = () =>{
+        if(firstName?.length >= 2 && lastName?.length >= 2 && email !== "" && description?.length >=10){
+            axios.post('create-contact', {
+                firstName,
+                lastName,
+                email,
+                description,
+            }).then((response)=>{
+                Swal.fire({
+                    title: "Success",
+                    text: "Contact added successfully",
+                    icon: "success",
+                    confirmButtonColor: "green",
+                  })
+                navigate('/');
+            })
+        }else{
+            Swal.fire({
+                title: "Warning",
+                text: "Add correct informations",
+                icon: "warning",
+                confirmButtonColor: "#f04f04",
+            })
+        }
+      }
     return(
-        <Box>
-            <Typography variant="h4" className="text-md font-semibold flex justify-center">Contact Us</Typography>
+        <Box sx={{height:"89.5vh", bgcolor:grey[300]}}>
+            <Box sx={{pt:"32px"}}>
+                <Typography variant="h4" className="text-md font-semibold flex justify-center">Contact Us</Typography>
+            </Box>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
                     <Grid item xs={12} sx={{ mt:"32px"}} display={"flex"} alignItems="center" justifyContent="center">
@@ -49,9 +83,9 @@ function Contact(){
                                             width: { xs: "65%", md: "40%" },
                                             borderColor: firstName?.length >= 2 ? green[500] : undefined,
                                         }}
-                                        error={!!errors.firstName}
+                                        error={!!errors.firstName && submitted === true}
                                         value={firstName}
-                                        helperText={!!errors.firstName ? errors.firstName.message : ""}
+                                        helperText={!!errors.firstName && submitted === true ? errors.firstName.message : ""}
                                         onChange={(e) => {
                                             setFirstName(e.target.value);
                                             field.onChange(e)
@@ -73,9 +107,9 @@ function Contact(){
                                     type="text"
                                     placeholder="Last Name"
                                     sx={{ width: { xs: "65%", md: "40%" } }}
-                                    error={!!errors.lastName}
+                                    error={!!errors.lastName && submitted === true}
                                     value={lastName}
-                                    helperText={errors.lastName ? errors.lastName.message : ""}
+                                    helperText={errors.lastName && submitted === true ? errors.lastName.message : ""}
                                     onChange={(e)=>{
                                         setLastName(e.target.value);
                                         field.onChange(e)
@@ -97,8 +131,8 @@ function Contact(){
                                     placeholder="Email"
                                     value={email}
                                     sx={{ width: { xs: "65%", md: "40%" } }}
-                                    error={!!errors.email}
-                                    helperText={errors.email ? errors.email.message : ""}
+                                    error={!!errors.email && submitted === true}
+                                    helperText={errors.email && submitted === true ? errors.email.message : ""}
                                     onChange={(e)=>{
                                         setEmail(e.target.value);
                                         field.onChange(e)
@@ -122,8 +156,8 @@ function Contact(){
                                     value={description}
                                     placeholder="Description"
                                     sx={{ width: { xs: "65%", md: "40%" } }}
-                                    error={!!errors.description}
-                                    helperText={errors.description ? errors.description.message : ""}
+                                    error={!!errors.description && submitted === true}
+                                    helperText={errors.description && submitted === true ? errors.description.message : ""}
                                     onChange={(e)=>{
                                         setDescription(e.target.value);
                                         field.onChange(e)
@@ -133,7 +167,10 @@ function Contact(){
                         />
                     </Grid>
                     <Grid item xs={12} sx={{ mt:"16px"}} display={"flex"} alignItems="center" justifyContent="center">
-                        <Button type="submit" variant="contained" sx={{ bgcolor:grey[800], "&:hover":{bgcolor:grey[900]}, mr:"24px" , px:"32px" }}>Send</Button>
+                        <Button type="submit" variant="contained" sx={{ bgcolor:grey[800], "&:hover":{bgcolor:grey[900]}, mr:"24px" , px:"32px" }} onClick={()=>{
+                            createContact();
+                            setSubmitted(true);
+                        }}>Send</Button>
                         <Button type="reset" variant="outlined" sx={{ border:`2px solid ${grey[800]}`, color:grey[800], "&:hover":{border:`2px solid ${grey[900]}`, color:grey[900]}, px:"32px" }} onClick={()=>{
                             setFirstName(""); setLastName(""); setEmail(""); setDescription("");
                         }}>Reset</Button>

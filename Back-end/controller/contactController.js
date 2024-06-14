@@ -23,6 +23,8 @@ exports.createContact = async (req, res) =>{
             return res.status(404).send('Contact not found');
         }
 
+        await contact.save();
+
         res.status(200).send(contact);
 
     }catch(err){
