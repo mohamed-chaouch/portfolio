@@ -54,10 +54,12 @@ function AddProject(){
     const createProject = () =>{
         if(title?.length >= 2 && image !== null && description?.length >=10){
 
-            const fd = new FormData();
+            let fd = new FormData();
             fd.append('title', title);
             fd.append("description", description);
-            fd.append("image", image);
+            if(image){
+                fd.append("image", image);
+            }
             // // Map details to an array of objects with filenames
             if(details && details.length > 1){
                 const detailsWithFilenames = details.map((detail, index) => {
@@ -67,15 +69,14 @@ function AddProject(){
                     }
                     return {
                         description: detail.description,
-                        image: detail.image, // Append the filename if image exists
+                        image: detail.image,
                     };
                 });
                 // Stringify the modified details array and append it to FormData
                 fd.append('details', JSON.stringify(detailsWithFilenames));
             }
 
-            console.log(details, " : details");
-            console.log(image, ": image");
+            console.log(fd, " : fd");
             axios.post('create-project', fd).then((response)=>{
                 Swal.fire({
                     title: "Success",
@@ -103,7 +104,7 @@ function AddProject(){
     }
 
     return(
-        <Box sx={{bgcolor:grey[300]}}>
+        <Box sx={{minHeight:"90vh", bgcolor:grey[300]}}>
             <Box sx={{pt:"32px"}}>
                 <Typography variant="h4" className="text-md font-semibold flex justify-center">Add Project</Typography>
             </Box>

@@ -15,6 +15,10 @@ const ProjectCard = styled(Card)(({ theme }) => ({
   borderRadius: '15px',
   boxShadow: '0 6px 18px rgba(0,0,0,0.1)',
   marginBottom: "1px",
+  display: 'flex',
+  flexDirection: 'column', // Ensures that the card content is stacked vertically
+  height: '100%', // Ensures the card takes the full height of its container
+
 }));
 
 const CardImage = styled(CardMedia)({

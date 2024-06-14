@@ -61,7 +61,7 @@ function Contact(){
         }
       }
     return(
-        <Box sx={{height:"89.5vh", bgcolor:grey[300]}}>
+        <Box sx={{height:"90.5vh", bgcolor:grey[300]}}>
             <Box sx={{pt:"32px"}}>
                 <Typography variant="h4" className="text-md font-semibold flex justify-center">Contact Us</Typography>
             </Box>
