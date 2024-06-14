@@ -126,3 +126,18 @@ exports.getAllProjects = async (req, res) =>{
         res.status(500).send({ message: err.message });
     }
 }
+
+// exports.getProjectDetail = async (req, res) =>{
+//     try{
+//         const projectId = req.params.idProject;
+//         const detailId = req.params.idDetail;
+
+//         if(!mongoose.Types.ObjectId.isValid(projectId) || !mongoose.Types.ObjectId.isValid(detailId)){
+//             return res.status(404).send('Id Invalid');
+//         }
+
+//         const projectDetail = await Project.findById({ _id : projectId, "details._id" : detailId })
+//     }catch(err){
+//         res.status(500).send({ message: err.message });
+//     }
+// }

@@ -1,5 +1,38 @@
 const Contact = require("../model/Contact");
 const mongoose = require("mongoose");
+const nodemailer = require("nodemailer");
+require('dotenv').config();
+
+// Create a nodemailer transporter to send emails.
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    secure: false, // true for 465, false for other ports
+    auth: {
+        type: "login", // default
+        user: process.env.USER, // Your email address
+        pass: process.env.PASSWORD, // Your app password
+    },
+    tls: {
+      // Disable strict TLS checks
+      rejectUnauthorized: false,
+    },
+});
+
+// Function to send email reminders
+async function sendEmail(from, to, subject, text) {
+try {
+    let info = await transporter.sendMail({
+    from: from,
+    to: to,
+    subject: subject,
+    text: text,
+    });
+    console.log("Email sent: " + info.response);
+} catch (error) {
+    console.error("Error sending email:", error);
+//   throw error; // rethrow the error to handle it in calling function
+}
+}
 
 exports.createContact = async (req, res) =>{
     try{
@@ -24,6 +57,14 @@ exports.createContact = async (req, res) =>{
         }
 
         await contact.save();
+
+        // Send email notifications
+        sendEmail(
+            contact.email,
+            "mohamedchaouch2212@gmail.com",
+            "Contact",
+            `New Person with the name ${contact.firstName} ${contact.lastName} Contacted you`,
+        );
 
         res.status(200).send(contact);
 

@@ -45,7 +45,7 @@ function Contact(){
             }).then((response)=>{
                 Swal.fire({
                     title: "Success",
-                    text: "Contact added successfully",
+                    text: "Email Sent It Successfully to Mohamed Chaoueech",
                     icon: "success",
                     confirmButtonColor: "green",
                   })
@@ -61,9 +61,9 @@ function Contact(){
         }
       }
     return(
-        <Box sx={{height:"90.5vh", bgcolor:grey[300]}}>
+        <Box sx={{height:"90.5vh", bgcolor:grey[200]}}>
             <Box sx={{pt:"32px"}}>
-                <Typography variant="h4" className="text-md font-semibold flex justify-center">Contact Us</Typography>
+                <Typography variant="h5" sx={{ pb: "16px", fontWeight: 'bold', textAlign: 'center' }}>Send Me a Message</Typography>
             </Box>
             <form onSubmit={handleSubmit(onSubmit)}>
                 <Grid container>
@@ -170,6 +170,7 @@ function Contact(){
                         <Button type="submit" variant="contained" sx={{ bgcolor:grey[800], "&:hover":{bgcolor:grey[900]}, mr:"24px" , px:"32px" }} onClick={()=>{
                             createContact();
                             setSubmitted(true);
+                            setFirstName(""); setLastName(""); setEmail(""); setDescription("");
                         }}>Send</Button>
                         <Button type="reset" variant="outlined" sx={{ border:`2px solid ${grey[800]}`, color:grey[800], "&:hover":{border:`2px solid ${grey[900]}`, color:grey[900]}, px:"32px" }} onClick={()=>{
                             setFirstName(""); setLastName(""); setEmail(""); setDescription("");
