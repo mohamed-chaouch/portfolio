@@ -78,7 +78,7 @@ const ProjectDetail = () => {
   if (!project) return <Typography align="center">No project data available</Typography>;
 
   return (
-    <ProjectDetailContainer>
+    <ProjectDetailContainer sx={{ mt:"73px" }}>
       <Container maxWidth="lg" sx={{ my: "32px" }}>
         <Box sx={{ width: { xs: '100%', md: '60%' }, margin: '0 auto', mb: "16px" }}>
           <ProjectCard>

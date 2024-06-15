@@ -7,8 +7,8 @@ import Contact from "../Contact";
 function Work(){
     const md = useMediaQuery('(min-width:600px)');
     return(
-        <Box id="home">
-            <Box id="about" sx={{height:{xs :"80vh", md: "90vh"}, bgcolor:grey[300], display:"flex", alignItems:"center", justifyContent:"center"}}>
+        <Box>
+            <Box sx={{height:{xs :"80vh", md: "90vh"}, mt: "73px", bgcolor:grey[300], display:"flex", alignItems:"center", justifyContent:"center"}}>
                 <Typography variant="h1" sx={{ fontSize:"54px", fontWeight:"500", mx:{xs: "16px"}, mr: {lg :"50px"} }}>I'm Mohamed Chaouech,<br /> Full Stack JS Developper</Typography>
                 {
                     md &&

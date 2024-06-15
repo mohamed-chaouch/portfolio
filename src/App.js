@@ -9,8 +9,10 @@ import ProjectDetail from "./pages/Projects/Details";
 
 function App() {
   return (
-    <Box>
-      <Navbar />
+    <Box id="about">
+      <Box id="home">
+        <Navbar />
+      </Box>
       <Routes>
         <Route path="/" element={<Work />} />
         <Route path="/create-project" element={<AddProject />} />

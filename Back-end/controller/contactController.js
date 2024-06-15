@@ -18,20 +18,38 @@ const transporter = nodemailer.createTransport({
     },
 });
 
-// Function to send email reminders
-async function sendEmail(from, to, subject, text) {
-try {
-    let info = await transporter.sendMail({
-    from: from,
-    to: to,
-    subject: subject,
-    text: text,
-    });
-    console.log("Email sent: " + info.response);
-} catch (error) {
-    console.error("Error sending email:", error);
-//   throw error; // rethrow the error to handle it in calling function
+// Function to generate the email HTML content
+function generateEmailHTML(contact) {
+    return `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+            <h2>New Contact Message</h2>
+            <p>You have received a new message from your website contact form.</p>
+            <h3>Contact Details</h3>
+            <ul>
+                <li><strong>First Name:</strong> ${contact.firstName}</li>
+                <li><strong>Last Name:</strong> ${contact.lastName}</li>
+                <li><strong>Email:</strong> ${contact.email}</li>
+                <li><strong>Description:</strong> ${contact.description}</li>
+            </ul>
+            <p><strong>Message:</strong></p>
+            <p>${contact.description}</p>
+        </div>
+    `;
 }
+
+// Function to send email
+async function sendEmail(from, to, subject, htmlContent) {
+    try {
+        let info = await transporter.sendMail({
+            from: `"Portfolio " <${from}>`,
+            to: to,
+            subject: subject,
+            html: htmlContent, // Use the HTML content here
+        });
+        console.log("Email sent: " + info.response);
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
 }
 
 exports.createContact = async (req, res) =>{
@@ -58,12 +76,15 @@ exports.createContact = async (req, res) =>{
 
         await contact.save();
 
+        // Generate the email HTML content
+        const emailHTML = generateEmailHTML(contact);
+        
         // Send email notifications
         sendEmail(
             contact.email,
             "mohamedchaouch2212@gmail.com",
             "Contact",
-            `New Person with the name ${contact.firstName} ${contact.lastName} Contacted you`,
+            emailHTML // Pass the HTML content to the email function
         );
 
         res.status(200).send(contact);
