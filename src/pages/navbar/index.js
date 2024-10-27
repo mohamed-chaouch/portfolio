@@ -86,7 +86,7 @@ function Navbar() {
                     </>
                 ) : (
                     <div sx={{ display:"flex", alignItems:"center" }}>
-                        <a onClick={() => handleNavigate('#home')} className="pr-4 cursor-pointer">Home</a>
+                        {/* <a onClick={() => handleNavigate('#home')} className="pr-4 cursor-pointer">Home</a> */}
                         <a onClick={() => handleNavigate('#about')} className="pr-4 cursor-pointer">About</a>
                         <a onClick={() => handleNavigate('#technologies')} className="pr-4 cursor-pointer">Technologies</a>
                         <a onClick={() => handleNavigate('#projects')} className="pr-4 cursor-pointer">Projects</a>

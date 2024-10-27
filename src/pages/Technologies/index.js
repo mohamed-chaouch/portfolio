@@ -27,6 +27,30 @@ const technologies = [
     image: "nodejs.jpg",
     alt: "Node JS",
   },
+  {
+    title: "Next JS",
+    description: "A React framework that enables server-side rendering and static site generation, allowing for fast, SEO-friendly applications and websites.",
+    image: "nextjs.jpeg",
+    alt: "Next JS",
+  },
+  {
+    title: "TailwindCss",
+    description: "A utility-first CSS framework that provides low-level utility classes to build custom designs quickly without writing custom CSS.",
+    image: "tailwind.png",
+    alt: "TailwindCss",
+  },
+  {
+    title: "Material UI",
+    description: "Is a React library for building user interfaces with customizable components based on Material Design.",
+    image: "material-ui.png",
+    alt: "Material UI",
+  },
+  {
+    title: "GitHub",
+    description: "Is a platform for version control and collaboration, enabling developers to host, manage, and share code.",
+    image: "github.jpg",
+    alt: "GitHub",
+  },
 ];
 
 const TechBox = styled(Box)(({ theme }) => ({

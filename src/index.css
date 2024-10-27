@@ -7,6 +7,18 @@ body{
     padding:"0px"
 }
 
+.link-style {
+    text-decoration: underline;
+    font-size: 32px;
+    font-weight: 600;
+    color: blue;
+    transition: color 0.3s ease;
+  }
+  
+.link-style:hover {
+color: #53079f;
+}
+
 /* ------ custom scrolbor ---------- */
 ::-webkit-scrollbar{
     width: 15px;
