@@ -127,7 +127,7 @@ function Navbar() {
               onClick={() => handleNavigate("#technologies")}
               className="pr-4 cursor-pointer"
             >
-              Technologies
+              Skills
             </a>
             <a
               href="#projects"

@@ -77,7 +77,8 @@ const Technologies = () => {
   return (
     <Box p={4} bgcolor={grey[200]}>
       <Typography variant="h5" sx={{ pb: "16px", fontWeight: 'bold', textAlign: 'center' }}>
-        Technologies I Used
+        {/* Technologies I Used */}
+        Skills
       </Typography>
       <Grid container spacing={3}>
         {technologies.map((tech, index) => (
